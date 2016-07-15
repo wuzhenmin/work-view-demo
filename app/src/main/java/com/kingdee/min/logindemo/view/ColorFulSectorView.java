@@ -67,8 +67,8 @@ public class ColorFulSectorView extends View {
     protected void onDraw(Canvas canvas) {
         float centreX = getWidth() / 2;
         float centreY = getHeight();
-        float mStartAngle = (float) (Math.toDegrees(Math.acos(centreX / bigRadius)) + 180);
-        float mSweepAngleSum = (float) (180 - 2 * Math.toDegrees(Math.acos(centreX / bigRadius)));
+        float mStartAngle = (float) (Math.toDegrees(Math.acos(centreX / smallRadius)) + 180);
+        float mSweepAngleSum = (float) (180 - 2 * Math.toDegrees(Math.acos(centreX / smallRadius)));
         float mSweepAngleApart = mSweepAngleSum / SUM2PARTS;
 
         mRectF.set(centreX - bigRadius, centreY - bigRadius, centreX + bigRadius, centreY + bigRadius);
