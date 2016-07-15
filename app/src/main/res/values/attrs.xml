@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="ColorFulSectorView">
+        <attr name="bigRadius" format="dimension" />
+        <attr name="smallRadius" format="dimension" />
+    </declare-styleable>
+
+
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LoginDemo</string>
+    <string name="hint_input_login_acount">输入用户名</string>
+    <string name="hint_input_password">输入密码</string>
+    <string name="btn_login">登录</string>
+    <string name="hint_input_code">输入验证码</string>
+</resources>
