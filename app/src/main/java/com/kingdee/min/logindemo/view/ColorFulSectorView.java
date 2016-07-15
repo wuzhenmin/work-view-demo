@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -24,9 +25,11 @@ public class ColorFulSectorView extends View {
     private int mTextColor;
     private Paint mPaint;
     private TextPaint mTextPaint;
+    private Path mPath;
     private RectF mRectF;
     private final int SUM2PARTS = 5;
-    private final float BACKROTATE = SUM2PARTS / 2f - 1f;
+    private final float BACKROTATE = SUM2PARTS / 2f;
+    private final float INDENTATION = 0.4f;
     private final int[] PANEL_COLORS = new int[]{
             Color.rgb(0xd7, 0x35, 0x23), Color.rgb(0xee, 0x4b, 0x39),
             Color.rgb(0xfb, 0x5c, 0x4a), Color.rgb(0xfe, 0x8b, 0x7f), Color.rgb(0xff, 0xaa, 0xa0)};
@@ -97,9 +100,24 @@ public class ColorFulSectorView extends View {
         mTextPaint.setColor(mTextColor);
         for (int i = 0; i < PANEL_LABELS.length; i++) {
             float halfTextLength = mTextPaint.measureText(PANEL_LABELS[i]) / 2f;
-            canvas.drawText(PANEL_LABELS[i], centreX-halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
-            canvas.rotate(mSweepAngleApart, centreX, centreY);
+            if (i == 0) {
+                canvas.rotate(mSweepAngleApart * INDENTATION, centreX, centreY);
+                canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
+            } else if (i == PANEL_LABELS.length - 1) {
+                canvas.rotate(mSweepAngleApart *(1-INDENTATION), centreX, centreY);
+                canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
+            } else if (i == 1) {
+                canvas.rotate(mSweepAngleApart *(1-INDENTATION), centreX, centreY);
+                canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
+            }else{
+                canvas.rotate(mSweepAngleApart, centreX, centreY);
+                canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
+            }
+
         }
+
+
+
 
 
     }

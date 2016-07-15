@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_alignParentBottom="true"
-        min:bigRadius="300dp"
+        min:bigRadius="380dp"
         min:mTextColor="@color/text_lebals_color"
         min:mTextSize="15sp"
-        min:smallRadius="280dp" />
+        min:smallRadius="370dp" />
 
 
 </RelativeLayout>
