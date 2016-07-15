@@ -11,7 +11,9 @@
         min:bigRadius="380dp"
         min:mTextColor="@color/text_lebals_color"
         min:mTextSize="15sp"
-        min:smallRadius="370dp" />
+        min:smallRadius="370dp"
+        min:mAngle="120f"
+        />
 
 
 </RelativeLayout>

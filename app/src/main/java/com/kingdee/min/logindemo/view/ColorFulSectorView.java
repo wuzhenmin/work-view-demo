@@ -23,6 +23,7 @@ public class ColorFulSectorView extends View {
     private int smallRadius;
     private int mTextSize;
     private int mTextColor;
+    private float mAngle;
     private Paint mPaint;
     private TextPaint mTextPaint;
     private Path mPath;
@@ -35,6 +36,8 @@ public class ColorFulSectorView extends View {
             Color.rgb(0xfb, 0x5c, 0x4a), Color.rgb(0xfe, 0x8b, 0x7f), Color.rgb(0xff, 0xaa, 0xa0)};
 
     final String[] PANEL_LABELS = new String[]{"350", "550", "600", "650", "700", "950"};
+
+
 
 
     public ColorFulSectorView(Context context) {
@@ -63,6 +66,9 @@ public class ColorFulSectorView extends View {
                     mTextSize = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
                             TypedValue.COMPLEX_UNIT_SP, 18, getResources().getDisplayMetrics()));
                     break;
+                case R.styleable.ColorFulSectorView_mAngle:
+                    mAngle = array.getInt(attr, 120);
+                    break;
                 default:
                     break;
 
@@ -72,6 +78,7 @@ public class ColorFulSectorView extends View {
         mPaint = new Paint();
         mTextPaint = new TextPaint();
         mRectF = new RectF();
+        mPath = new Path();
     }
 
     @Override
@@ -104,21 +111,29 @@ public class ColorFulSectorView extends View {
                 canvas.rotate(mSweepAngleApart * INDENTATION, centreX, centreY);
                 canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
             } else if (i == PANEL_LABELS.length - 1) {
-                canvas.rotate(mSweepAngleApart *(1-INDENTATION), centreX, centreY);
+                canvas.rotate(mSweepAngleApart * (1 - INDENTATION), centreX, centreY);
                 canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
             } else if (i == 1) {
-                canvas.rotate(mSweepAngleApart *(1-INDENTATION), centreX, centreY);
+                canvas.rotate(mSweepAngleApart * (1 - INDENTATION), centreX, centreY);
                 canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
-            }else{
+            } else {
                 canvas.rotate(mSweepAngleApart, centreX, centreY);
                 canvas.drawText(PANEL_LABELS[i], centreX - halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
             }
 
         }
 
-
-
+        float radiusCentre = (bigRadius - smallRadius) / 2f;
+        float topX = getWidth() / 2f;
+        float topY = smallRadius + radiusCentre;
 
 
     }
+
+   /* public float[] getPointInCircle() {
+        float mInsideAngle = (180 - mAngle)*0.5f;
+        float mSanWidth = (float) (Math.sin(mInsideAngle)*smallRadius);
+        
+
+    }*/
 }

@@ -7,6 +7,7 @@
         <attr name="smallRadius" format="dimension" />
         <attr name="mTextSize" format="dimension" />
         <attr name="mTextColor" format="color" />
+        <attr name="mAngle" format="float"/>
     </declare-styleable>
 
 
