@@ -35,9 +35,10 @@ public class ColorFulSectorView extends View {
             Color.rgb(0xd7, 0x35, 0x23), Color.rgb(0xee, 0x4b, 0x39),
             Color.rgb(0xfb, 0x5c, 0x4a), Color.rgb(0xfe, 0x8b, 0x7f), Color.rgb(0xff, 0xaa, 0xa0)};
 
-    final String[] PANEL_LABELS = new String[]{"350", "550", "600", "650", "700", "950"};
+    private final String[] PANEL_LABELS = new String[]{"350", "550", "600", "650", "700", "950"};
 
-
+    private float centreX;
+    private float centreY;
 
 
     public ColorFulSectorView(Context context) {
@@ -83,8 +84,10 @@ public class ColorFulSectorView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        float centreX = getWidth() / 2;
-        float centreY = getHeight();
+        centreX = getWidth() / 2;
+        centreY = getHeight();
+        mPaint.setAntiAlias(true);
+        mTextPaint.setAntiAlias(true);
         float mStartAngle = (float) (Math.toDegrees(Math.acos(centreX / smallRadius)) + 180);
         float mSweepAngleSum = (float) (180 - 2 * Math.toDegrees(Math.acos(centreX / smallRadius)));
         float mSweepAngleApart = mSweepAngleSum / SUM2PARTS;
@@ -100,6 +103,39 @@ public class ColorFulSectorView extends View {
         mPaint.setColor(Color.WHITE);
         canvas.drawCircle(centreX, centreY, smallRadius, mPaint);
 
+        drawLabels(canvas, mSweepAngleApart);
+        drawTriangle(canvas);
+
+
+    }
+
+    public void drawTriangle(Canvas canvas) {
+        float radiusCentre = (bigRadius - smallRadius) / 2f;
+
+        float mInsideAngle = (180 - mAngle) * 0.5f;
+        float mTriangleHalfWidth = (float) (Math.sin(mInsideAngle) * smallRadius);
+        float hight = (float) (Math.cos(mInsideAngle) * smallRadius);
+
+        float topX = centreX;
+        float topY = smallRadius + radiusCentre;
+
+        float mLeftX = centreX - mTriangleHalfWidth;
+        float mLeftY = hight;
+
+        float mRightX = centreX + mTriangleHalfWidth;
+        float mRightY = hight;
+
+        mPath.moveTo(topX, topY);
+        mPath.lineTo(mLeftX, mLeftY);
+        mPath.lineTo(mRightX, mRightY);
+        mPath.lineTo(topX, topY);
+
+        mPaint.setColor(Color.BLACK);
+        canvas.drawPath(mPath, mPaint);
+
+    }
+
+    private void drawLabels(Canvas canvas, float mSweepAngleApart) {
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextSize(mTextSize);
         canvas.drawText("hello", centreX, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
@@ -122,18 +158,7 @@ public class ColorFulSectorView extends View {
             }
 
         }
-
-        float radiusCentre = (bigRadius - smallRadius) / 2f;
-        float topX = getWidth() / 2f;
-        float topY = smallRadius + radiusCentre;
-
-
     }
 
-   /* public float[] getPointInCircle() {
-        float mInsideAngle = (180 - mAngle)*0.5f;
-        float mSanWidth = (float) (Math.sin(mInsideAngle)*smallRadius);
-        
 
-    }*/
 }
