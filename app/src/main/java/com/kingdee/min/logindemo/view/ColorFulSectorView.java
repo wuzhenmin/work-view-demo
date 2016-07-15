@@ -20,18 +20,19 @@ public class ColorFulSectorView extends View {
 
     private int bigRadius;
     private int smallRadius;
+    private int mTextSize;
+    private int mTextColor;
     private Paint mPaint;
     private TextPaint mTextPaint;
     private RectF mRectF;
     private final int SUM2PARTS = 5;
-    private final int BACKROTATE = SUM2PARTS / 2;
+    private final float BACKROTATE = SUM2PARTS / 2f-1f;
     private final int[] PANEL_COLORS = new int[]{
             Color.rgb(0xd7, 0x35, 0x23), Color.rgb(0xee, 0x4b, 0x39),
             Color.rgb(0xfb, 0x5c, 0x4a), Color.rgb(0xfe, 0x8b, 0x7f), Color.rgb(0xff, 0xaa, 0xa0)};
 
-    private final String[] PANEL_STRINGS = new String[]{
-            "jin", "mu", "shui", "huo", "tu"
-    };
+    final String[] PANEL_LABELS = new String[]{"350", "550", "600", "650", "700", "950"};
+
 
     public ColorFulSectorView(Context context) {
         this(context, null);
@@ -51,6 +52,13 @@ public class ColorFulSectorView extends View {
                 case R.styleable.ColorFulSectorView_bigRadius:
                     bigRadius = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
                             TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics()));
+                    break;
+                case R.styleable.ColorFulSectorView_mTextColor:
+                    mTextColor = array.getColor(attr, Color.BLACK);
+                    break;
+                case R.styleable.ColorFulSectorView_mTextSize:
+                    mTextSize = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_SP, 18, getResources().getDisplayMetrics()));
                     break;
                 default:
                     break;
@@ -83,12 +91,12 @@ public class ColorFulSectorView extends View {
         canvas.drawCircle(centreX, centreY, smallRadius, mPaint);
 
         mTextPaint.setColor(Color.WHITE);
-        mTextPaint.setTextSize(28);
-        canvas.drawText("hello", centreX, centreY - bigRadius - mPaint.getTextSize(), mPaint);
+        mTextPaint.setTextSize(mTextSize);
+        canvas.drawText("hello", centreX, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
         canvas.rotate(-BACKROTATE * mSweepAngleApart, centreX, centreY);
-        mTextPaint.setColor(Color.BLACK);
-        for (int i = 0; i < PANEL_STRINGS.length; i++) {
-            canvas.drawText(PANEL_STRINGS[i], centreX, centreY - bigRadius - mPaint.getTextSize(), mPaint);
+        mTextPaint.setColor(mTextColor);
+        for (int i = 0; i < PANEL_LABELS.length; i++) {
+            canvas.drawText(PANEL_LABELS[i], centreX, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
             canvas.rotate(mSweepAngleApart, centreX, centreY);
         }
 

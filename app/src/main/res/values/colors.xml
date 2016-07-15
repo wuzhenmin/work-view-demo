@@ -6,4 +6,5 @@
     <color name="color_btn_unable">#969696</color>
     <color name="btn_text_color">#FFFFFF</color>
     <color name="btn_gradient_color">#0099ff</color>
+    <color name="text_lebals_color">#000033</color>
 </resources>

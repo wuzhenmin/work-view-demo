@@ -5,6 +5,8 @@
     <declare-styleable name="ColorFulSectorView">
         <attr name="bigRadius" format="dimension" />
         <attr name="smallRadius" format="dimension" />
+        <attr name="mTextSize" format="dimension" />
+        <attr name="mTextColor" format="color" />
     </declare-styleable>
 
 
