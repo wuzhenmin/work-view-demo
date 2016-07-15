@@ -26,7 +26,7 @@ public class ColorFulSectorView extends View {
     private TextPaint mTextPaint;
     private RectF mRectF;
     private final int SUM2PARTS = 5;
-    private final float BACKROTATE = SUM2PARTS / 2f-1f;
+    private final float BACKROTATE = SUM2PARTS / 2f - 1f;
     private final int[] PANEL_COLORS = new int[]{
             Color.rgb(0xd7, 0x35, 0x23), Color.rgb(0xee, 0x4b, 0x39),
             Color.rgb(0xfb, 0x5c, 0x4a), Color.rgb(0xfe, 0x8b, 0x7f), Color.rgb(0xff, 0xaa, 0xa0)};
@@ -96,7 +96,8 @@ public class ColorFulSectorView extends View {
         canvas.rotate(-BACKROTATE * mSweepAngleApart, centreX, centreY);
         mTextPaint.setColor(mTextColor);
         for (int i = 0; i < PANEL_LABELS.length; i++) {
-            canvas.drawText(PANEL_LABELS[i], centreX, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
+            float halfTextLength = mTextPaint.measureText(PANEL_LABELS[i]) / 2f;
+            canvas.drawText(PANEL_LABELS[i], centreX-halfTextLength, centreY - bigRadius - mPaint.getTextSize(), mTextPaint);
             canvas.rotate(mSweepAngleApart, centreX, centreY);
         }
 
