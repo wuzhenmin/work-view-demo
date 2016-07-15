@@ -1,4 +1,3 @@
 # work-view-demo
-![image](http://github.com/wuzhenmin/work-view-demo/raw/master/app/image/work-demo-view.png)
-
+![image](https://github.com/wuzhenmin/work-view-demo/blob/master/app/image/work-deom-view.png)
 
