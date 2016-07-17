@@ -24,6 +24,8 @@ public class ColorFulSectorView extends View {
     private int mTextSize;
     private int mTextColor;
     private float mAngle;
+    private float mTriangle;
+    private int mTriangleWidth;
     private Paint mPaint;
     private TextPaint mTextPaint;
     private Path mPath;
@@ -60,6 +62,13 @@ public class ColorFulSectorView extends View {
                     bigRadius = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
                             TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics()));
                     break;
+                case R.styleable.ColorFulSectorView_mTriangle:
+                    mTriangle = array.getFloat(attr, 100);
+                    break;
+                case R.styleable.ColorFulSectorView_mTriangleWidth:
+                    mTriangleWidth = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+                    break;
                 case R.styleable.ColorFulSectorView_mTextColor:
                     mTextColor = array.getColor(attr, Color.BLACK);
                     break;
@@ -68,7 +77,7 @@ public class ColorFulSectorView extends View {
                             TypedValue.COMPLEX_UNIT_SP, 18, getResources().getDisplayMetrics()));
                     break;
                 case R.styleable.ColorFulSectorView_mAngle:
-                    mAngle = array.getInt(attr, 120);
+                    mAngle = array.getFloat(attr, 30);
                     break;
                 default:
                     break;
@@ -91,7 +100,7 @@ public class ColorFulSectorView extends View {
         float mStartAngle = (float) (Math.toDegrees(Math.acos(centreX / smallRadius)) + 180);
         float mSweepAngleSum = (float) (180 - 2 * Math.toDegrees(Math.acos(centreX / smallRadius)));
         float mSweepAngleApart = mSweepAngleSum / SUM2PARTS;
-
+        float flagAngle = mStartAngle;
         mRectF.set(centreX - bigRadius, centreY - bigRadius, centreX + bigRadius, centreY + bigRadius);
         for (int i = 0; i < SUM2PARTS; i++) {
             canvas.drawArc(mRectF, mStartAngle, mSweepAngleApart, true, mPaint);
@@ -104,33 +113,56 @@ public class ColorFulSectorView extends View {
         canvas.drawCircle(centreX, centreY, smallRadius, mPaint);
 
         drawLabels(canvas, mSweepAngleApart);
-        drawTriangle(canvas);
+
+        drawTriangle(canvas, flagAngle);
 
 
     }
 
-    public void drawTriangle(Canvas canvas) {
-        float radiusCentre = (bigRadius - smallRadius) / 2f;
+    public void drawTriangle(Canvas canvas, float startAngle) {
+        float sweepAngle = startAngle - 180 + 60;
+        float widAngle = 20;
 
-        float mInsideAngle = (180 - mAngle) * 0.5f;
-        float mTriangleHalfWidth = (float) (Math.sin(mInsideAngle) * smallRadius);
-        float hight = (float) (Math.cos(mInsideAngle) * smallRadius);
+        float angleForLeft, angleForTop, angleForRight, radiusForTop;
 
-        float topX = centreX;
-        float topY = smallRadius + radiusCentre;
+        float pLeftX = 0, pLeftY = 0, pTopX = 0, pTopY = 0, pRightX = 0, pRightY = 0;
 
-        float mLeftX = centreX - mTriangleHalfWidth;
-        float mLeftY = hight;
+        radiusForTop = smallRadius + 10;
+        angleForTop = sweepAngle;
+        angleForLeft = sweepAngle - widAngle;
+        angleForRight = sweepAngle + widAngle;
 
-        float mRightX = centreX + mTriangleHalfWidth;
-        float mRightY = hight;
+        if (sweepAngle > 90) {
+            angleForTop = 180 - sweepAngle;
+            pTopX = (float) (centreX + radiusForTop * Math.cos(angleForTop));
+        } else {
+            pTopX = (float) (centreX - radiusForTop * Math.cos(angleForTop));
+        }
 
-        mPath.moveTo(topX, topY);
-        mPath.lineTo(mLeftX, mLeftY);
-        mPath.lineTo(mRightX, mRightY);
-        mPath.lineTo(topX, topY);
+        if (angleForLeft > 90) {
+            angleForLeft = 180 - angleForLeft;
+            pLeftX = (float) (centreX + smallRadius * Math.cos(angleForLeft));
+        } else {
+            pLeftX = (float) (centreX - smallRadius * Math.cos(angleForLeft));
+        }
 
-        mPaint.setColor(Color.BLACK);
+        if (angleForRight > 90) {
+            angleForRight = 180 - angleForRight;
+            pRightX = (float) (centreX + smallRadius * Math.cos(angleForRight));
+        } else {
+            pRightX = (float) (centreX - smallRadius * Math.cos(angleForRight));
+        }
+
+        pLeftY = centreY + (float) (smallRadius * Math.sin(angleForLeft));
+        pTopY = centreY + (float) (radiusForTop * Math.sin(angleForTop));
+        pRightY = centreY + (float) (smallRadius * Math.sin(angleForRight));
+
+        mPath.moveTo(pLeftX, pLeftY);
+        mPath.lineTo(pTopX, pTopY);
+        mPath.lineTo(pRightX, pRightY);
+        mPath.close();
+
+        mPaint.setColor(Color.GREEN);
         canvas.drawPath(mPath, mPaint);
 
     }
