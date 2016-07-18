@@ -116,24 +116,23 @@ public class ColorFulSectorView extends View {
 
         drawTriangle(canvas, flagAngle);
 
-
     }
 
     public void drawTriangle(Canvas canvas, float startAngle) {
-        float sweepAngle = startAngle - 180 + 60;
-        float widAngle = 20;
+        float sweepAngle = 20;
+        float widAngle = 5;
 
         float angleForLeft, angleForTop, angleForRight, radiusForTop;
 
         float pLeftX = 0, pLeftY = 0, pTopX = 0, pTopY = 0, pRightX = 0, pRightY = 0;
 
-        radiusForTop = smallRadius + 10;
-        angleForTop = sweepAngle;
-        angleForLeft = sweepAngle - widAngle;
-        angleForRight = sweepAngle + widAngle;
+        radiusForTop = smallRadius + 15;
+        angleForTop = sweepAngle + startAngle - 180;
+        angleForLeft = angleForTop - widAngle;
+        angleForRight = angleForTop + widAngle;
 
-        if (sweepAngle > 90) {
-            angleForTop = 180 - sweepAngle;
+        if (angleForTop > 90) {
+            angleForTop = 180 - angleForTop;
             pTopX = (float) (centreX + radiusForTop * Math.cos(angleForTop));
         } else {
             pTopX = (float) (centreX - radiusForTop * Math.cos(angleForTop));
