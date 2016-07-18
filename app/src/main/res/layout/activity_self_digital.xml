@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:min="http://schemas.android.com/apk/res-auto"
+                xmlns:min="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <com.kingdee.min.logindemo.view.ColorFulSectorView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentBottom="true"
-        min:bigRadius="380dp"
-        min:mTextColor="@color/text_lebals_color"
-        min:mTextSize="15sp"
-        min:smallRadius="370dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.kingdee.min.logindemo.view.CreditPanelView
+            android:id="@+id/credit_panel_view"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="#00000000"
+            min:innerRadius="313dp"
+            min:labelTextMargin="6dp"
+            min:labelTextSize="12dp"
+            min:outerRadius="323dp"
+            />
+
+        <com.kingdee.min.logindemo.view.ColorFulSectorView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            min:bigRadius="380dp"
+            min:mTextColor="@color/text_lebals_color"
+            min:mTextSize="15sp"
+            min:smallRadius="370dp" />
+    </LinearLayout>
+</ScrollView>
+
+
 
 
 </RelativeLayout>
