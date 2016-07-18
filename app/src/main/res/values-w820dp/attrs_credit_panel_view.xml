@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="CreditPanelView">
+        <attr name="outerRadius" format="dimension"/>
+        <attr name="innerRadius" format="dimension" />
+        <attr name="labelTextSize" format="dimension"/>
+        <attr name="labelTextMargin" format="dimension"/>
+    </declare-styleable>
+</resources>
