@@ -9,11 +9,8 @@
         android:layout_height="400dp"
         android:layout_alignParentBottom="true"
         min:bigRadius="380dp"
-        min:mAngle="40"
         min:mTextColor="@color/text_lebals_color"
         min:mTextSize="15sp"
-        min:mTriangle="60"
-        min:mTriangleWidth="30dp"
         min:smallRadius="370dp" />
 
 
